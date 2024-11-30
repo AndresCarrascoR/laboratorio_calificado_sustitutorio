@@ -1,4 +1,4 @@
-package com.coronel.jeremias.laboratoriocalificado03
+package com.carrasco.andres.laboratoriocalificado03
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

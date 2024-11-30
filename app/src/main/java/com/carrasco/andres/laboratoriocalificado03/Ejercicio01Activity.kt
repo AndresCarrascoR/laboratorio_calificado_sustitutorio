@@ -1,19 +1,19 @@
-package com.coronel.jeremias.laboratoriocalificado03
+package com.carrasco.andres.laboratoriocalificado03
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.coronel.jeremias.laboratoriocalificado03.api.RetrofitInstance
-import com.coronel.jeremias.laboratoriocalificado03.models.Teacher
+import com.carrasco.andres.laboratoriocalificado03.api.RetrofitInstance
+import com.carrasco.andres.laboratoriocalificado03.models.Post
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class Ejercicio01Activity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var teacherAdapter: TeacherAdapter
+    private lateinit var postAdapter: PostAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,23 +22,23 @@ class Ejercicio01Activity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        fetchTeachers()
+        fetchPosts()
     }
 
-    private fun fetchTeachers() {
-        RetrofitInstance.api.getTeachers().enqueue(object : Callback<Map<String, List<Teacher>>> {
-            override fun onResponse(call: Call<Map<String, List<Teacher>>>, response: Response<Map<String, List<Teacher>>>) {
+    private fun fetchPosts() {
+        RetrofitInstance.api.getPosts().enqueue(object : Callback<List<Post>> {
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 if (response.isSuccessful) {
-                    val teachers = response.body()?.get("teachers") ?: emptyList()
-                    teacherAdapter = TeacherAdapter(this@Ejercicio01Activity, teachers)
-                    recyclerView.adapter = teacherAdapter
+                    val posts = response.body() ?: emptyList()
+                    postAdapter = PostAdapter(this@Ejercicio01Activity, posts)
+                    recyclerView.adapter = postAdapter
                 } else {
                     // Manejar el error de respuesta no exitosa
                     Log.e("Ejercicio01Activity", "Error en la respuesta del API: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<Map<String, List<Teacher>>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 // Manejar el error de falla en la solicitud
                 Log.e("Ejercicio01Activity", "Error en la solicitud del API: ${t.message}")
             }

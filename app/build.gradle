@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.coronel.jeremias.laboratoriocalificado03'
+    namespace 'com.carrasco.andres.laboratoriocalificado03'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.coronel.jeremias.laboratoriocalificado03"
+        applicationId "com.carrasco.andres.laboratoriocalificado03"
         minSdk 24
         targetSdk 35
         versionCode 1
